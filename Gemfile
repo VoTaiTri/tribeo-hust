@@ -30,6 +30,11 @@ gem 'unicorn'
 # for model user
 gem 'devise'
 
+# for upload image
+gem 'carrierwave', '0.10.0'
+gem 'mini_magick', '3.8.0'
+gem 'fog', '1.23.0'
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
@@ -44,5 +49,5 @@ group :development, :test do
   gem 'spring'
 
   # seed
-  gem 'faker',                '1.4.2'
+  gem 'faker', '1.4.2'
 end

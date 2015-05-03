@@ -2,9 +2,8 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_for resource, as: resource_name, url: registration_path(resource_name), html: {method: :put} do |f| %>
-    
+  <div class="col-md-6 col-md-offset-2 well">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, multipart: true}) do |f| %>
       <%= devise_error_messages! %>
       
       <%= f.label "Tên hiển thị" %>
@@ -27,9 +26,22 @@
       <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %>
       <hr />
 
+      <%= f.label "Thay đổi hình ảnh đại diện" %>
+      <%= f.file_field :avatar, accept: 'image/jpeg,image/gif,image/png',class: 'form-control' %>
+      <hr />
+
       <%= f.submit "Cập nhật", class: "btn btn-primary" %>
     <% end %>
 
     <%= link_to "Back", :back %>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-3 well">
+    <label>Hình ảnh đại diện hiện tại</label>
+    <% if resource.avatar.blank? %>
+      <%= image_tag "default-user.png", size:"180x120", alt: "Current Cover", class: "img-polaroid" %>
+    <% else %>
+      <%= image_tag resource.avatar, size:"180x120", alt: "Current Cover", class: "img-polaroid" %>
+    <% end %>
   </div>
 </div>
