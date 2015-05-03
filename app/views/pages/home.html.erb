@@ -1,4 +1,13 @@
 <% provide :title, "Home pages" %>
+
+<% if user_signed_in? %>
+  <% content_for :left_info do %>
+    <section class="user_info">
+      <%= render 'shared/user_info' %>
+    </section>
+  <% end %>
+<% end %>
+
 <h1>Pages#home</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
 
