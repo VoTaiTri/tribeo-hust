@@ -1,7 +1,7 @@
 <%= hidden_field_tag :direction, params[:direction] %>
 <%= hidden_field_tag :sort, params[:sort] %>
 
-<h1>Danh sách giảng viên</h1>
+<h2>Danh sách giảng viên</h2>
 
 <% if @users.any? %>
   <table class="table table-striped table-bordered">
@@ -16,5 +16,5 @@
 
   <%= will_paginate @users %>
 <% else %>
-  <h2 style="center">Không có giảng viên nào trong hệ thống</h2>
+  <h3 style="center">Không có giảng viên nào trong hệ thống</h3>
 <% end %>
