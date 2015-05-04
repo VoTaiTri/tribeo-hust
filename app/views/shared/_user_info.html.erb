@@ -1,2 +1,4 @@
-<h1><%= current_user.name %></h1>
+<% @user ||= current_user %>
+
+<h1><%= @user.name %></h1>
 <span><%= link_to "view my profile", "#" %></span> 

@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
+  scope :search_by, ->name {where('name LIKE ?', "%#{name}%")}
+
   def is_admin?
     role == "admin"
   end

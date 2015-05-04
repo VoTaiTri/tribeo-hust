@@ -1,0 +1,26 @@
+<% provide :title, "List users" %>
+
+<% if user_signed_in? %>
+  <% content_for :left_info do %>
+    <section class="user_info">
+      <%= render 'shared/user_info' %>
+    </section>
+  <% end %>
+<% end %>
+  
+<%= form_tag admin_users_path, method: 'get', id: "users_search" do %>
+  <%= hidden_field_tag :direction, params[:direction] %>
+  <%= hidden_field_tag :sort, params[:sort] %>
+    
+  <div class="col-md-12 well">
+    <div class="col-md-6">
+      <label>Tìm kiếm giảng viên</label>
+    </div>
+    <div class="col-md-6">
+      <%= text_field_tag :search, params[:search], placeholder: 'Tìm kiếm giảng viên bằng tên hiển thị...' %>
+    </div>
+  </div> 
+  <div class="col-md-12">
+    <div id="users_div"><%= render 'list_users' %></div>
+  </div>
+<% end %>
