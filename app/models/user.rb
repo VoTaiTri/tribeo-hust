@@ -18,4 +18,8 @@ class User < ActiveRecord::Base
   def is_admin?
     role == "admin"
   end
+
+  def is_lecturer?
+    role == "normal"
+  end
 end
