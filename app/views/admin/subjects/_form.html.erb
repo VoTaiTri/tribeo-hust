@@ -1,0 +1,11 @@
+<%= form_for [:admin, @subject] do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.label :name, "Tên môn học" %>
+  <%= f.text_field :name, class: 'form-control' %>
+  <hr />
+  
+  <%= f.submit "Thêm mới", class: "btn btn-primary" %>
+  <hr />
+<% end %>
+<%= link_to "Quay lại", :back %>

@@ -1,0 +1,28 @@
+<% provide :title, "List subjects" %>
+
+<% if user_signed_in? %>
+  <% content_for :left_info do %>
+    <section class="user_info">
+      <%= render 'shared/user_info' %>
+    </section>
+  <% end %>
+<% end %>
+  
+<%= form_tag admin_subjects_path, method: 'get', id: "subjects_search" do %>
+  <%= hidden_field_tag :direction, params[:direction] %>
+  <%= hidden_field_tag :sort, params[:sort] %>
+    
+  <div class="col-md-12 well">
+    <div class="col-md-6">
+      <label>Tìm kiếm môn học</label>
+    </div>
+    <div class="col-md-6">
+      <%= text_field_tag :search, params[:search], placeholder: 'Tìm kiếm môn học bằng tên ...' %>
+    </div>
+  </div> 
+  <div class="col-md-12">
+    <div id="subjects_div"><%= render 'list_subjects' %></div>
+  </div>
+<% end %>
+
+<div><%= link_to "Thêm môn học mới", new_admin_subject_path %></div>

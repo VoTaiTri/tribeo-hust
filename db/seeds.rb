@@ -1,7 +1,12 @@
 puts "Create admin"
 User.create!(name:  "VoTaiTri", email: "admin@crb.com", password: 123456, password_confirmation: 123456, role: "admin")
 
-puts "Create 5 user"
-5.times do
+puts "Create 15 user"
+15.times do
   User.create!(name: Faker::Name.name, email: Faker::Internet.email, password: 123456, password_confirmation: 123456)
+end
+
+puts "Create 5 subject"
+5.times do
+  Subject.create!(name: Faker::Name.name)
 end

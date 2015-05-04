@@ -1,0 +1,10 @@
+<tr id="subject_<%= subject.id %>">
+  <td><div class="col-md-12"><%= link_to subject.name, admin_subject_path(subject) %></div></td>
+  <td>
+    <div class="col-md-12">
+      <%= link_to "Thay đổi", edit_admin_subject_path(subject), class: "btn btn-success" %>
+      <%= link_to "Xóa", admin_subject_path(subject), method: :delete,
+      class: "btn btn-danger", remote: true, data: {confirm: "Bạn thực sự muốn xóa thông tin giảng viên này?"} %>
+    </div>
+  </td>
+</tr>
