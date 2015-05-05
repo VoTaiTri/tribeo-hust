@@ -1,0 +1,19 @@
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+
+<h2>Danh sách giảng viên</h2>
+
+<% if @users.any? %>
+  <table class="table table-striped">
+    <tr>
+      <th style="width: 80px"><div class="col-md-12">Avatar</div></th>
+      <th><div class="col-md-12"><%= sortable "name", "Tên hiển thị" %></div></th>
+      <th><div class="col-md-12">Email</div></th>
+    </tr>
+    <%= render @users %>
+  </table>
+
+  <%= will_paginate @users %>
+<% else %>
+  <h3 style="center">Không có giảng viên nào trong hệ thống</h3>
+<% end %>

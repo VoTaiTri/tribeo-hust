@@ -6,10 +6,10 @@
         <li><%= link_to "Trang chủ", root_path %></li>
         <% if user_signed_in? && current_user.is_admin? %>
           <%= render 'shared/admin_header' %>
-        <% end %>
-        <% if user_signed_in? && current_user.is_lecturer? %>
+        <% elsif user_signed_in? && current_user.is_lecturer? %>
           <%= render 'shared/lecturer_header' %>
-        <% elsif user_signed_in? %>
+        <% end %>
+        <% if user_signed_in? %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               Tài khoản <b class="caret"></b>

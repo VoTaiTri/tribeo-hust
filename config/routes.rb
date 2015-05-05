@@ -6,4 +6,6 @@ Rails.application.routes.draw do
     resources :users
     resources :subjects
   end
+
+  resources :users, only: [:index, :show]
 end

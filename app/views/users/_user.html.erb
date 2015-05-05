@@ -1,0 +1,15 @@
+<% unless current_user == user %>
+  <tr id="user_<%= user.id %>">
+    <td>
+      <div class="col-md-12">
+        <% if user.avatar.blank? %>
+          <%= image_tag "default-user.png", size: "32x32", alt: "User", class: "img-rounded" %>
+        <% else %>
+          <%= image_tag user.avatar, size: "32x32", alt: "User", class: "img-rounded" %>
+        <% end %>
+      </div>
+    </td>
+    <td><div class="col-md-12"><%= link_to user.name, user_path(user) %></div></td>
+    <td><div class="col-md-12"><%= user.email %></div></td>
+  </tr>
+<% end %>
