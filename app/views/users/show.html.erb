@@ -10,4 +10,18 @@
 
 Username : <%= @user.name %>
 Email : <%= @user.email %>
-Subjects = <%= @subjects %>
+
+<h2>Danh sách môn học đảm nhiệm</h2>
+
+<% if @subjects.any? %>
+  <table class="table table-striped">
+    <tr>
+      <th><div class="col-md-12">Tên môn học</div></th>
+    </tr>
+    <%= render @subjects %>
+  </table>
+
+  <%= will_paginate @subjects %>
+<% else %>
+  <h4 style="center">Giảng viên không đảm nhiệm môn học nào.</h4>
+<% end %>

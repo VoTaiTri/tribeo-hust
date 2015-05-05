@@ -15,7 +15,7 @@
               Tài khoản <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "Thông tin cá nhân", '#' %></li>
+              <li><%= link_to "Thông tin cá nhân", user_path(current_user) %></li>
               <li><%= link_to "Thay đổi", edit_user_registration_path(current_user) %></li>
               <li class="divider"></li>
               <li>
