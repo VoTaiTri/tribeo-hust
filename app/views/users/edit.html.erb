@@ -8,7 +8,13 @@
   <% end %>
 <% end %>
 
-Name : <%= @user.name %>
-Email : <%= @user.email %>
+<div class="col-md-12 col-md-offset-2">
+  <div class="col-md-8 well">
+    Name : <%= @user.name %>
+    Email : <%= @user.email %>
+  </div>
 
-<%= render 'form' %>
+  <%= render 'form' %>
+
+  <%= link_to "Back", :back %>
+</div>

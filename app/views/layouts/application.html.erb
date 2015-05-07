@@ -10,23 +10,26 @@
   </head>
   <body>
     <%= render 'shared/header' %>
-    <div class="container">
-      <aside class="col-md-2">
-        <%= yield :left_info %>
-      </aside>
-
-      <div class="col-md-10">
-        <% if notice %>
-          <p class="alert alert-success"><%= notice %></p>
-        <% elsif alert %>
-          <p class="alert alert-danger"><%= alert %></p>
-        <% elsif flash %>
-          <% flash.each do |message_type, message| %>
-            <div class="alert alert-<%= message_type %>"><%= message %></div>
-          <% end %>
+    
+    <div class="main-container">
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% elsif alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% elsif flash %>
+        <% flash.each do |message_type, message| %>
+          <div class="alert alert-<%= message_type %>"><%= message %></div>
         <% end %>
+      <% end %>
 
-        <%= yield %>
+      <div class="row">
+        <aside class="col-md-2">
+          <%= yield :left_info %>
+        </aside>
+
+        <div class="col-md-10">
+          <%= yield %>
+        </div>
       </div>
     </div>
     
