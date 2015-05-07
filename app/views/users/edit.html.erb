@@ -1,4 +1,4 @@
-<% provide :title, "Show subject" %>
+<% provide :title, "Edit tecnicals" %>
 
 <% if user_signed_in? %>
   <% content_for :left_info do %>
@@ -8,4 +8,7 @@
   <% end %>
 <% end %>
 
-Subject : <%= @subject.name %>
+Name : <%= @user.name %>
+Email : <%= @user.email %>
+
+<%= render 'form' %>

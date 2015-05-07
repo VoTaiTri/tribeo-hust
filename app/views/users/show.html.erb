@@ -25,3 +25,5 @@ Email : <%= @user.email %>
 <% else %>
   <h4 style="center">Giảng viên không đảm nhiệm môn học nào.</h4>
 <% end %>
+
+<%= link_to "edit subject", edit_user_path(@user) %>

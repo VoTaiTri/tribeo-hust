@@ -7,7 +7,6 @@
     </section>
   <% end %>
 <% end %>
-  
 <%= form_tag subjects_path, method: 'get', id: "subjects_search" do %>
   <%= hidden_field_tag :direction, params[:direction] %>
   <%= hidden_field_tag :sort, params[:sort] %>
@@ -27,4 +26,5 @@
 
 <% if params[:user_id].nil? %>
   <div><%= link_to "Danh sách môn học đảm nhiệm", user_subjects_path(@user) %></div>
+  <div><%= link_to "Thay đổi môn học đảm nhiệm", edit_user_path(@user) %></div>
 <% end %>

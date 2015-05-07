@@ -6,6 +6,8 @@
     <li><%= link_to "Danh sách môn học", subjects_path %></li>
     <li class="divider"></li>
     <li><%= link_to "Môn học đảm nhiệm", user_subjects_path(current_user) %></li>
+    <li class="divider"></li>
+    <li><%= link_to "Thay đổi môn học đảm nhiệm", edit_user_path(current_user) %></li>
   </ul>
 </li>
 <li class="dropdown">

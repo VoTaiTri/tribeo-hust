@@ -1,7 +1,11 @@
 <%= hidden_field_tag :direction, params[:direction] %>
 <%= hidden_field_tag :sort, params[:sort] %>
 
-<h2>Danh sách môn học</h2>
+<% if params[:user_id] %>
+  <h2>Danh sách môn học đảm nhiệm</h2>
+<% else %>
+  <h2>Danh sách môn học</h2>
+<% end %>
 
 <% if @subjects.any? %>
   <table class="table table-striped">
