@@ -5,14 +5,17 @@ class Admin::UsersController < Admin::BaseController
   def index
     @users = User.search_by(params[:search]).order(sort_column + ' ' + sort_direction)
     @users= @users.paginate page: params[:page], per_page: 10
+    authorize! :read, @users
   end
 
   def new
     @user = User.new
+    authorize! :new, @user
   end
 
   def create
     @user = User.new user_params
+    authorize! :create, @user
     if @user.save
       flash[:success] = "Thêm thông tin giảng viên mới thành công."
       redirect_to admin_users_path
@@ -23,10 +26,12 @@ class Admin::UsersController < Admin::BaseController
 
   def show
     @user = User.find params[:id]
+    authorize! :read, @user
   end
 
   def destroy
     @user = User.find params[:id]
+    authorize! :destroy, @user
     @user.destroy
   end
 

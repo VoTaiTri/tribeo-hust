@@ -6,14 +6,17 @@ class Admin::SubjectsController < Admin::BaseController
   def index
     @subjects = Subject.search_by(params[:search]).order(sort_column + ' ' + sort_direction)
     @subjects= @subjects.paginate page: params[:page], per_page: 10
+    authorize! :read, @subjects
   end
 
   def new
     @subject = Subject.new
+    authorize! :new, @subject
   end
 
   def create
     @subject = Subject.new subject_params
+    authorize! :create, @subject
     if @subject.save
       flash[:success] = "Thêm môn học mới thành công."
       redirect_to admin_subjects_path
@@ -23,12 +26,15 @@ class Admin::SubjectsController < Admin::BaseController
   end
 
   def show
+    authorize! :read, @subject
   end
 
   def edit
+    authorize! :edit, @subject
   end
 
   def update
+    authorize! :update, @subject
     if @subject.update_attributes subject_params
       flash[:success] = "Thông tin môn học đã được cập nhật."
       redirect_to admin_subjects_path
@@ -38,6 +44,7 @@ class Admin::SubjectsController < Admin::BaseController
   end
 
   def destroy
+    authorize! :destroy, @subject
     @subject.destroy
   end
 

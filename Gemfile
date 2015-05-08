@@ -46,6 +46,9 @@ gem 'select2-rails'
 # for fix turbolinks
 gem 'jquery-turbolinks'
 
+# for permission
+gem 'cancancan', '~> 1.10.1'
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
