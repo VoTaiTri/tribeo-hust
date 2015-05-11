@@ -4,12 +4,14 @@ class Admin::SubjectsController < Admin::BaseController
   before_action :set_subject, only: [:show, :edit, :update, :destroy]
 
   def index
-    @subjects = Subject.search_by(params[:search]).order(sort_column + ' ' + sort_direction)
+    @subjects = Subject.search_by params[:search], params[:filter]
+    @subejcts = @subjects.order(sort_column + ' ' + sort_direction)
     @subjects= @subjects.paginate page: params[:page], per_page: 10
     authorize! :read, @subjects
   end
 
   def new
+    @button = "Thêm mới"
     @subject = Subject.new
     authorize! :new, @subject
   end
@@ -25,11 +27,8 @@ class Admin::SubjectsController < Admin::BaseController
     end
   end
 
-  def show
-    authorize! :read, @subject
-  end
-
   def edit
+    @button = "Cập nhật"
     authorize! :edit, @subject
   end
 
@@ -50,7 +49,7 @@ class Admin::SubjectsController < Admin::BaseController
 
   private
   def subject_params
-    params.require(:subject).permit :name
+    params.require(:subject).permit :name, :subjectID, :tc, :lt, :bt, :species
   end
 
   def set_subject

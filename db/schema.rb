@@ -25,9 +25,16 @@ ActiveRecord::Schema.define(version: 20150504141810) do
 
   create_table "subjects", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "tc"
+    t.integer  "lt",         default: 0
+    t.integer  "bt",         default: 0
+    t.string   "subjectID"
+    t.string   "species",    default: "normal"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
+
+  add_index "subjects", ["subjectID"], name: "index_subjects_on_subjectID"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

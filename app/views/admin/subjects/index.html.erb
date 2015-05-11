@@ -13,13 +13,16 @@
   <%= hidden_field_tag :sort, params[:sort] %>
     
   <div class="col-md-12 well">
-    <div class="col-md-6">
+    <div class="col-md-2">
       <label>Tìm kiếm môn học</label>
     </div>
     <div class="col-md-6">
-      <%= text_field_tag :search, params[:search], placeholder: 'Tìm kiếm môn học bằng tên ...' %>
+      <%= text_field_tag :search, params[:search], placeholder: 'Tìm kiếm môn học bằng tên ...' , class: "input-medium search-query" %>
     </div>
-  </div> 
+    <div class="col-md-2">
+      <%= select_tag "filter", options_for_select([['Tất cả', ''], ['Lớp thường', 'normal'], ['Lớp thực hành', 'project']]) %>
+    </div>
+</div> 
   <div class="col-md-12">
     <div id="subjects_div"><%= render 'list_subjects' %></div>
   </div>
