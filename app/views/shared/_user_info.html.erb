@@ -1,4 +1,12 @@
-<% @user ||= current_user %>
-
-<h1><%= @user.name %></h1>
-<span><%= link_to "view my profile", user_path(@user) %></span> 
+<div class="user_info">
+  <% @user ||= current_user %>
+  <div class="avatar">
+    <% if @user.avatar.blank? %>
+      <%= image_tag "default-user.png", alt: "User" %>
+    <% else %>
+      <%= image_tag user.avatar, alt: "User" %>
+    <% end %>
+  </div>
+  <h1><%= @user.name %></h1>
+  <span><%= link_to "Xem trang cá nhân", user_path(@user) %></span>
+</div>

@@ -150,27 +150,6 @@ aside {
   }
 }
 
-.gravatar {
-  float: left;
-  margin-right: 10px;
-}
-
-.gravatar_edit {
-  margin-top: 15px;
-}
-
-
-.user_avatars {
-  overflow: auto;
-  margin-top: 10px;
-  .gravatar {
-    margin: 1px 1px;
-  }
-  a {
-    padding: 0;
-  }
-}
-
 /**************** forms ****************/
 
 input, textarea, select, .uneditable-input {
@@ -201,5 +180,30 @@ input {
   #session_remember_me {
     width: auto;
     margin-left: 0;
+  }
+}
+
+/*************** user_info *****************/
+
+.user_info {
+  .avatar {
+    margin-left: 32px;
+    img {
+      width: 120px;
+      height: 120px;
+      border-radius: 5px;
+    }
+  }
+  h1 {
+    padding-top: 5px;
+    text-align: center;
+    font-size: 18px;
+  }
+  span {
+    text-align: center;
+    font-size: 12px;
+  }
+  a:hover {
+    color: #666699;
   }
 }
