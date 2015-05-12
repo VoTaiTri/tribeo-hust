@@ -2,8 +2,20 @@
   <td><div class="col-md-12"><%= subject.subjectID %></div></td>
   <td><div class="col-md-12"><%= subject.name %></div></td>
   <td><div class="col-md-12"><%= subject.tc %></div></td>
-  <td><div class="col-md-12"><%= subject.lt %></div></td>
-  <td><div class="col-md-12"><%= subject.bt %></div></td>
+  <td>
+    <div class="col-md-12">
+    <% if subject.species == "normal" %>
+      <%= subject.lt %>
+    <% end %>
+    </div>
+  </td>
+  <td>
+    <div class="col-md-12">
+      <% if subject.species == "normal" %>
+        <%= subject.bt %>
+      <% end %>
+    </div>
+  </td>
   <td>
     <div class="col-md-12">
       <% if subject.species == "normal" %>
