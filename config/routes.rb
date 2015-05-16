@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'courses/index'
+
   devise_for :users, controllers: {registrations: 'registrations'}
   root 'pages#home'
 
@@ -10,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :show, :edit, :update] do
     resources :subjects
+    resources :courses
   end
   
   resources :subjects, only: [:index, :show]
