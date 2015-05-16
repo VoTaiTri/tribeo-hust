@@ -18,15 +18,16 @@ ActiveRecord::Schema.define(version: 20150516025807) do
     t.integer  "enroll"
     t.integer  "max_enroll"
     t.string   "term"
+    t.string   "state"
     t.text     "note"
     t.string   "timetable"
-    t.string   "division_state"
+    t.string   "division_state", default: "spending"
     t.string   "user_rejected"
     t.string   "user_confirm"
     t.integer  "user_id"
     t.integer  "subject_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   add_index "courses", ["subject_id"], name: "index_courses_on_subject_id"

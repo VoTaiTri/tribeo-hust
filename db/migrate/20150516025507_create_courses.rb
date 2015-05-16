@@ -5,9 +5,10 @@ class CreateCourses < ActiveRecord::Migration
       t.integer :enroll
       t.integer :max_enroll
       t.string :term
+      t.string :state
       t.text :note
       t.string :timetable
-      t.string :division_state
+      t.string :division_state, default: "spending"
       t.string :user_rejected
       t.string :user_confirm
       t.references :user, index: true

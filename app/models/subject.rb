@@ -1,6 +1,7 @@
 class Subject < ActiveRecord::Base
   has_many :subject_users
   has_many :lecturers, through: :subject_users, source: :user, foreign_key: :subject_id
+  has_many :courses, dependent: :destroy
 
   validates :name, presence: true, length: {maximum: 255}
   validates :tc, presence: true, numericality: {only_integer: true}

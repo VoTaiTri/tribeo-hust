@@ -1,0 +1,26 @@
+<%= form_for [:admin, @course] do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="col-md-12 well">
+    <%= f.label :term, "Hoc ky" %>
+    <%= f.text_field :term, class: 'form-control' %>
+
+    <%= f.label :subject_id, "Hoc phan" %>
+    <%= f.select :subject_id, Subject.all.collect{|s| [s.name, s.id]}, {}, {class: 'select-one form-control'} %>
+
+    <%= f.label :courseID, "Ma lop hoc" %>
+    <%= f.text_field :courseID, class: 'form-control' %>
+    
+    <%= f.label :enroll, "So luong dk" %>
+    <%= f.number_field :enroll, min: 0, class: 'number-chosse form-control' %><br/>
+
+    <%= f.label :max_enroll, "Max dk" %>
+    <%= f.number_field :max_enroll, min: 0, class: 'number-chosse form-control' %><br/>
+
+    <hr>
+    <div class="col-md-12">
+      <%= f.submit @button, class: "btn btn-primary" %>
+      <hr>
+      <%= link_to "Quay lại", :back %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,33 @@
+<table class="table table-striped table-bordered">
+  <tr>
+    <th><div class="col-md-12">ID</div></th>
+    <th><div class="col-md-12">Ma HP</div></th>
+    <th><div class="col-md-12">Ma lop</div></th>
+    <th><div class="col-md-12">Ten lop</div></th>
+    <th style="width: 200px;"><div class="col-md-12">Form</div></th>
+    <th style="width: 200px;"><div class="col-md-12">No form</div></th>
+  </tr>
+  <% @courses.each do |course| %>
+    <tr>
+      <td><%= course.id %></td>
+      <td><%= course.subject.subjectID %></td>
+      <td><%= course.courseID %></td>
+      <td><%= course.subject.name %></td>
+      <td id="division_course_<%= course.id %>">
+        <% if course.user_id.blank? %> 
+          <%= form_for [:admin, course], {method: :put, remote: true} do |f| %>
+            <%= f.hidden_field :division_state, value: 'ongoing' %>
+            <%= f.hidden_field :user_confirm, value: 'waiting' %>
+            <%= f.select :user_id, User.teaching(course.id).collect{|s| [s.name, s.id]}, {}, {class: 'select-one form-control'} %>
+            <%= f.submit "Submit", class: 'btn btn-primary btn-small' %>
+          <% end %>
+        <% else %>
+          <%= User.find(course.user_id).name %>
+        <% end %>
+      </td>
+      <td>
+        <%= select_tag :user_id, options_for_select(User.teaching(course.id).collect{|s| [s.name, s.id]}), class: 'select-one form-control' %>
+      </td>
+    </tr>
+   <% end %>
+</table>

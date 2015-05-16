@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
 
   has_many :subject_users
   has_many :technicals, through: :subject_users, source: :subject, foreign_key: :user_id
+  has_many :courses
 
   validates :name, presence: true, length: {maximum: 100}
   validates :role, presence: true, length: {maximum: 50}
@@ -14,6 +15,8 @@ class User < ActiveRecord::Base
   scope :search_by, ->name {where('name LIKE ?', "%#{name}%")}
 
   accepts_nested_attributes_for :technicals
+
+  scope :teaching, ->subject_id {joins(:subject_users).where("subject_id = ?", "#{subject_id}")}
 
   def is_admin?
     role == "admin"
