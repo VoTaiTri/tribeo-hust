@@ -11,7 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150504141810) do
+ActiveRecord::Schema.define(version: 20150516025807) do
+
+  create_table "courses", force: :cascade do |t|
+    t.integer  "courseID"
+    t.integer  "enroll"
+    t.integer  "max_enroll"
+    t.string   "term"
+    t.text     "note"
+    t.string   "timetable"
+    t.string   "division_state"
+    t.string   "user_rejected"
+    t.string   "user_confirm"
+    t.integer  "user_id"
+    t.integer  "subject_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "courses", ["subject_id"], name: "index_courses_on_subject_id"
+  add_index "courses", ["user_id"], name: "index_courses_on_user_id"
 
   create_table "subject_users", force: :cascade do |t|
     t.integer  "user_id"
@@ -35,6 +54,18 @@ ActiveRecord::Schema.define(version: 20150504141810) do
   end
 
   add_index "subjects", ["subjectID"], name: "index_subjects_on_subjectID"
+
+  create_table "timetables", force: :cascade do |t|
+    t.string   "day"
+    t.string   "start_time"
+    t.string   "finish_time"
+    t.string   "room"
+    t.integer  "course_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "timetables", ["course_id"], name: "index_timetables_on_course_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

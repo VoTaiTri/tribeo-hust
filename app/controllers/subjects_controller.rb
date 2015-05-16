@@ -5,9 +5,9 @@ class SubjectsController < ApplicationController
   def index
     if params[:user_id]
       @user = User.find params[:user_id]
-      subjects = @user.technicals.search_by params[:search]
+      subjects = @user.technicals.search_by params[:search], params[:filter]
     else
-      subjects = Subject.search_by params[:search]
+      subjects = Subject.search_by params[:search], params[:filter]
     end
     @subjects = subjects.order(sort_column + ' ' + sort_direction)
     @subjects = @subjects.paginate page: params[:page], per_page: 10

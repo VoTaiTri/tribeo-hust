@@ -22,4 +22,7 @@ $(document).ready(function() {
   $('.number-chosse').select2({
     width: 100
   });
+  setTimeout(function() {
+    $('.hide-flash-messages').fadeOut('normal');
+  }, 3000);
 });
