@@ -13,10 +13,9 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   scope :search_by, ->name {where('name LIKE ?', "%#{name}%")}
+  scope :teaching, ->subject_id {joins(:subject_users).where("subject_id = ?", "#{subject_id}")}
 
   accepts_nested_attributes_for :technicals
-
-  scope :teaching, ->subject_id {joins(:subject_users).where("subject_id = ?", "#{subject_id}")}
 
   def is_admin?
     role == "admin"

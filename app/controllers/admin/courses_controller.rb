@@ -9,6 +9,7 @@ class Admin::CoursesController < ApplicationController
   def new
     @course = Course.new
     @button = "New"
+    @timetables = @course.timetables.build
     authorize! :new, @course
   end
 
@@ -24,6 +25,11 @@ class Admin::CoursesController < ApplicationController
     end
   end
 
+  def edit
+    @course = Course.find params[:id]
+
+  end
+
   def update
     @course = Course.find params[:id]
     authorize! :update, @course
@@ -35,6 +41,10 @@ class Admin::CoursesController < ApplicationController
     params.require(:course).permit :courseID, :enroll, :max_enroll, :state,
                                   :term, :note, :timetable, :division_state,
                                   :user_rejectd, :user_confirm,
-                                  :subject_id, :user_id
+                                  :subject_id, :user_id,
+                                  timetables_attributes: [:id, :day, :room,
+                                                          :start_time, 
+                                                          :finish_time,
+                                                          :_destroy]
   end
 end

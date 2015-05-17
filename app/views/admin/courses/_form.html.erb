@@ -1,0 +1,38 @@
+<%= form_for [:admin, @course] do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="col-md-8 col-md-offset-2 well">
+    
+    <%= f.label :term, "Học kỳ" %>
+    <%= f.text_field :term, class: 'form-control' %></br>
+
+
+    <%= f.label :subject_id, "Tên học phần" %>
+    <%= f.select :subject_id, Subject.all.collect{|s| [s.name, s.id]}, {}, {class: 'select-one form-control'} %></br>
+
+
+    <%= f.label :courseID, "Mã lớp học" %>
+    <%= f.text_field :courseID, class: 'form-control' %></br>
+
+    <%= f.label :enroll, "Số lượng đăng ký" %>
+    <%= f.number_field :enroll, min: 0, class: 'number-chosse form-control' %></br>
+
+    <%= f.label :max_enroll, "Max đăng ký" %>
+    <%= f.number_field :max_enroll, min: 0, class: 'number-chosse form-control' %></br>
+
+
+    <%= f.label "Thời khóa biểu" %>
+    <%= f.fields_for :timetables do |builder| %>
+      <%= render 'timetable_fields', f: builder %>
+    <% end %>
+
+    <p>
+      <%= link_to_add_fields "Thêm buổi học trong tuần", f, :timetables %>
+    </p>
+    <hr>
+    <div class="col-md-12">
+      <%= f.submit @button, class: "btn btn-primary" %>
+      <hr>
+      <%= link_to "Quay lại", :back %>
+    </div>
+  </div>
+<% end %>

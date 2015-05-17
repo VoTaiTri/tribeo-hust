@@ -1,0 +1,27 @@
+<div class="col-md-12 well fields">
+  <div class="display-inline">
+    <div class="col-md-2">
+      <%= f.label :day, "Ngày học" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.text_field :day, class: 'form-control' %>
+    </div>
+    <div class="col-md-2">
+      <%= f.label :start_time, "Bắt đầu từ" %>
+    </div>
+    <div class="col-md-2">
+      <%= f.text_field :start_time, class: 'form-control' %>
+    </div>
+    <div class="col-md-1">
+      <%= f.label :finish_time, "Đến" %>
+    </div>
+    <div class="col-md-2">
+      <%= f.text_field :finish_time, class: 'form-control' %></br>
+    </div>
+  </div>
+
+  <%= f.label :room, "Phòng học" %>
+  <%= f.text_field :room, class: 'form-control' %>
+ 
+  <%= link_to_remove_fields "Bớt buổi học", f %>
+</div>

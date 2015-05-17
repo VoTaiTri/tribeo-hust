@@ -20,9 +20,20 @@ $(document).ready(function() {
     width: "100%"
   });
   $('.number-chosse').select2({
-    width: 100
+    width: "20%"
   });
   setTimeout(function() {
     $('.hide-flash-messages').fadeOut('normal');
   }, 3000);
 });
+
+function remove_fields(link) {
+  $(link).prev("input[type=hidden]").val("1");
+  $(link).closest(".fields").hide();
+}
+
+function add_fields(link, association, content) {
+  var new_id = new Date().getTime();
+  var regexp = new RegExp("new_" + association, "g");
+  $(link).parent().before(content.replace(regexp, new_id));
+}
