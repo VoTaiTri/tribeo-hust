@@ -3,7 +3,6 @@
     <%= link_to "datn", root_path, id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Trang chủ", root_path %></li>
         <% if user_signed_in? && current_user.is_admin? %>
           <%= render 'shared/admin_header' %>
         <% elsif user_signed_in? && current_user.is_lecturer? %>
@@ -12,7 +11,12 @@
         <% if user_signed_in? %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Tài khoản <b class="caret"></b>
+              <% if current_user.avatar.blank? %>
+                <%= image_tag "default-user.png", size: "16x14", class: "img-rounded" %>
+              <% else %>
+                <%= image_tag current_user.avatar, size: "16x14", class: "img-rounded" %>
+              <% end %>
+              <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
               <li><%= link_to "Thông tin cá nhân", user_path(current_user) %></li>
