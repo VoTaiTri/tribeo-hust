@@ -1,4 +1,6 @@
 class Course < ActiveRecord::Base
+  DAYNAMES = [['Thứ hai', '2'], ['Thứ ba', '3'], ['Thứ tư', '4'], ['Thứ năm', '5'], ['Thứ sáu', '6']]
+
   belongs_to :subject
   belongs_to :user
   has_many :timetables

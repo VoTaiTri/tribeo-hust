@@ -14,6 +14,7 @@ class Admin::CoursesController < ApplicationController
   end
 
   def create
+    byebug
     @course = Course.new course_params
     authorize! :create, @course
     if @course.save
