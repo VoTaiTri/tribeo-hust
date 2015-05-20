@@ -1,4 +1,4 @@
-class Admin::CoursesController < ApplicationController
+class Admin::CoursesController < Admin::BaseController
   respond_to :html, :js
 
   def index

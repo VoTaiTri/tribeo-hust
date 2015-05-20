@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  get 'courses/index'
-
   devise_for :users, controllers: {registrations: 'registrations'}
   root 'pages#home'
 
   namespace :admin do
+    root "dashboard#home"
     resources :users
     resources :subjects ,except: :show
     resources :courses
