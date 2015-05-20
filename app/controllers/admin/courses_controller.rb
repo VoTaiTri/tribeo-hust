@@ -8,33 +8,36 @@ class Admin::CoursesController < ApplicationController
 
   def new
     @course = Course.new
-    @button = "New"
+    @button = "Thêm mới"
     @timetables = @course.timetables.build
     authorize! :new, @course
   end
 
   def create
-    byebug
     @course = Course.new course_params
     authorize! :create, @course
     if @course.save
-      flash[:success] = "add successfully"
+      flash[:success] = "Thêm mới thông tin mở lớp thành công."
       redirect_to root_url
     else
-      flash.now[:danger] = "add unsuccessfully"
       render :new
     end
   end
 
   def edit
     @course = Course.find params[:id]
-
+    @button = "Cập nhật"
   end
 
   def update
     @course = Course.find params[:id]
     authorize! :update, @course
-    @course.update_attributes course_params
+    if @course.update_attributes course_params
+      redirect_to admin_courses_path()
+      flash[:success] = "Cập nhật thông tin mở lớp thành công."
+    else
+      render :edit
+    end
   end
 
   private

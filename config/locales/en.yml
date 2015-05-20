@@ -20,4 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        blank: "không được để trống"
+        format: "không đúng định dạng"

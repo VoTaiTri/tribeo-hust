@@ -12,7 +12,7 @@
       <td><%= course.subject_id %></td>
       <td><%= course.subject.subjectID %></td>
       <td><%= course.courseID %></td>
-      <td><%= course.subject.name %></td>
+      <td><%= link_to course.subject.name, edit_admin_course_path(course) %></td>
       <td>
         <%= form_for [:admin, course], {remote: true} do |f| %>
           <%= f.hidden_field :division_state, value: 'ongoing' %>
