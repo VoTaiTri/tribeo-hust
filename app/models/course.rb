@@ -8,7 +8,8 @@ class Course < ActiveRecord::Base
   validates_presence_of :courseID, :term, :subject, :timetables,
               message: I18n.t('activerecord.errors.models.blank')
 
-  scope :teach_by, ->user_id {where("user_id = ?", "#{user_id}")}
+  scope :teach_by, ->user_id {where(user_id: user_id)}
+  scope :need_assign,-> {where("user_confirm = 'rejected' OR division_state= 'spending'")}
 
   accepts_nested_attributes_for :timetables, reject_if: :all_blank, allow_destroy: true
 end

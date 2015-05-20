@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   scope :search_by, ->name {where('name LIKE ?', "%#{name}%")}
   scope :teaching, ->subject_id {joins(:subject_users).where("subject_id = ?", "#{subject_id}")}
-
+  scope :un_rejected, ->user_ids {where.not(id: user_ids)}
   accepts_nested_attributes_for :technicals
 
   def is_admin?

@@ -32,11 +32,15 @@ class Admin::CoursesController < Admin::BaseController
   def update
     @course = Course.find params[:id]
     authorize! :update, @course
-    if @course.update_attributes course_params
-      redirect_to admin_courses_path()
-      flash[:success] = "Cập nhật thông tin mở lớp thành công."
+    if params[:course][:user_id]
+      @course.update_attributes course_params
     else
-      render :edit
+      if @course.update_attributes course_params
+        redirect_to admin_courses_path()
+        flash[:success] = "Cập nhật thông tin mở lớp thành công."
+      else
+        render :edit
+      end
     end
   end
 

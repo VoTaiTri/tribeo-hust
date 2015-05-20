@@ -8,13 +8,12 @@ class CoursesController < ApplicationController
   end
 
   def update
-    # byebug
     @course = Course.find params[:id]
     if params[:user_confirm] == "rejected"
       user_rejected = @course.user_rejected.to_s + current_user.id.to_s + ","
       @course.update_attributes user_rejected: user_rejected, user_confirm: params[:user_confirm]
-    else
-      @course.update_attributes user_confirm: params[:user_confirm]
+    elsif params[:user_confirm] == "accepted"
+      @course.update_attributes user_confirm: params[:user_confirm], division_state: "done"
     end
   end
 

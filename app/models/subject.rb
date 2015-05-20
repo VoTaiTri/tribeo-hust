@@ -10,7 +10,6 @@ class Subject < ActiveRecord::Base
   validates :subjectID, presence: true, uniqueness: true
   validates :species, presence: true
 
-
   scope :search_by, ->(name, type) {where('name LIKE ? AND species LIKE ?', "%#{name}%", "%#{type}%")}
   
 end
