@@ -8,13 +8,19 @@
   <% end %>
 <% end %>
 
-<div class="col-md-12 col-md-offset-2">
-  <div class="col-md-8 well">
-    Name : <%= @user.name %>
-    Email : <%= @user.email %>
-  </div>
+<div class="col-md-8 col-md-offset-2 well">
+  <table>
+    <tr>
+      <th width="200px">Họ và tên</th>
+      <td><%= @user.name %></td>
+    </tr>
+    <tr>
+      <th width="200px">Email</th>
+      <td><%= @user.email %></td>
+    </tr>
+  </table>
+</div>
 
+<div class="col-md-8 col-md-offset-2 well">
   <%= render 'form' %>
-
-  <%= link_to "Back", :back %>
 </div>

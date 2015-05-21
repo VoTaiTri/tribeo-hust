@@ -1,4 +1,4 @@
-<% provide :title, "Show lecturer" %>
+<% provide :title, "Show user info" %>
 
 <% if user_signed_in? %>
   <% content_for :left_info do %>
@@ -8,22 +8,45 @@
   <% end %>
 <% end %>
 
-Username : <%= @user.name %>
-Email : <%= @user.email %>
-
-<h2>Danh sách môn học đảm nhiệm</h2>
-
-<% if @subjects.any? %>
-  <table class="table table-striped">
+<div class="col-md-8 col-md-offset-2 well">
+  <table>
     <tr>
-      <th><div class="col-md-12">Tên môn học</div></th>
+      <th width="200px">Họ và tên</th>
+      <td><%= @user.name %></td>
     </tr>
-    <%= render @subjects %>
+    <tr>
+      <th width="200px">Email</th>
+      <td><%= @user.email %></td>
+    </tr>
   </table>
+</div>
 
-  <%= will_paginate @subjects %>
-<% else %>
-  <h4 style="center">Giảng viên không đảm nhiệm môn học nào.</h4>
-<% end %>
+<div class="col-md-12">
+  <% if user_signed_in? && @user.is_lecturer? %>
+    <h2>Danh sách môn học đảm nhiệm</h2>
 
-<%= link_to "Thay đổi môn học đảm nhiệm", edit_user_path(@user) %>
+    <% if @subjects.any? %>
+      <table class="table table-striped">
+        <tr>
+          <th style="width: 100px"><div class="col-md-12">Mã HP</div></th>
+          <th><div class="col-md-12">Tên môn học</div></th>
+          <th style="width: 40px"><div class="col-md-12">TC</div></th>
+          <th style="width: 90px">Số giờ LT</th>
+          <th style="width: 90px">Số giờ BT</th>
+          <th style="width: 80px"><div class="col-md-12">Kiểu</div></th>
+        </tr>
+        <%= render @subjects %>
+      </table>
+
+      <%= will_paginate @subjects %>
+    <% else %>
+      <h4 style="center">Giảng viên không đảm nhiệm môn học nào.</h4>
+    <% end %>
+
+    <%= link_to "Thay đổi môn học đảm nhiệm", edit_user_path(@user) %>
+  <% else %>
+    <div class="col-md-8 col-md-offset-2 well">
+      <h4>Bạn đăng nhập với tài khoản quản trị viên.</h4>
+    </div>
+  <% end %>
+</div>

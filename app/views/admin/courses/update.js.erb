@@ -1,1 +1,2 @@
 $("#division_course_<%= @course.id %>").html("<div><%= User.find(@course.user_id).name %><div>");
+$("#lecturer_confirm_<%= @course.id %>").html("<div class='waiting-confirm'>Đang chờ xác nhận<div>");

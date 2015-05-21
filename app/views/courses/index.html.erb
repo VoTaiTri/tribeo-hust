@@ -1,29 +1,35 @@
 <h1>My course</h1>
 <table class="table table-striped">
   <tr>
-    <th><div class="col-md-12">ID lop</div></th>
-    <th><div class="col-md-12">Ma HP</div></th>
-    <th><div class="col-md-12">Ma lop</div></th>
-    <th><div class="col-md-12">Ten lop</div></th>
-    <th style="width: 200px;"><div class="col-md-12">active</div></th>
-    
+    <th width="70px">Mã HP</th>
+    <th width="74px">Mã lớp</th>
+    <th>Tên lớp</th>
+    <th width="80px">Kiểu lớp</th>
+    <th style="width: 200px;"><div class="col-md-12">Xác nhận lớp</div></th>
   </tr>
   <% @courses.each do |course| %>
     <tr>
-      <td><%= course.id %></td>
       <td><%= course.subject.subjectID %></td>
       <td><%= course.courseID %></td>
       <td><%= course.subject.name %></td>
+      <td>
+        <%if course.subject.species == "normal" %>
+          LT+BT
+        <% elsif course.subject.species == "project" %>
+          Do an
+        <% end %>
+      </td>
       <td id="lecturer_confirm_<%= course.id %>">
         <% if course.user_confirm == 'accepted' %>
-          <div class="accepted-confirm">accepted<div>
+          <div class="accepted-confirm">Đã nhận lớp<div>
         <% elsif course.user_confirm == 'rejected' %>
-          <div class="rejected-confirm">rejected<div>
+          <div class="rejected-confirm">Không nhận lớp<div>
         <% else %>
-          <%= link_to "Accept", user_course_path(id: course.id, user_confirm: 'accepted'), method: :put, remote: true %>
-          <%= link_to "Reject", user_course_path(id: course.id, user_confirm: 'rejected'), method: :put, remote: true %>
+          <%= link_to "Nhận lớp", user_course_path(id: course.id, user_confirm: 'accepted'), method: :put, remote: true %>
+          <%= link_to "Không nhận lớp", user_course_path(id: course.id, user_confirm: 'rejected'), method: :put, remote: true %>
         <% end %>
       </td>
     </tr>
    <% end %>
 </table>
+  

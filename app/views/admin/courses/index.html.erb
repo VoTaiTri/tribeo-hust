@@ -1,38 +1,62 @@
 <table class="table table-striped table-bordered">
   <tr>
-    <th><div class="col-md-12">SID</div></th>
-    <th><div class="col-md-12">CID</div></th>
-    <th><div class="col-md-12">Ma HP</div></th>
-    <th><div class="col-md-12">Ma lop</div></th>
-    <th><div class="col-md-12">Ten lop</div></th>
-    <th style="width: 200px;"><div class="col-md-12">Phan cong</div></th>
-    <th style="width: 200px;"><div class="col-md-12">Giang vien</div></th>
+    <th width="70px">Mã HP</th>
+    <th width="74px">Mã lớp</th>
+    <th>Tên lớp</th>
+    <th width="80px">Kiểu lớp</th>
+    <th width="200px">Phân công</th>
+    <th width="200px">Giảng viên</th>
+    <th width="160px">Giảng viên xác nhận</th>
   </tr>
   <% @courses.each do |course| %>
     <tr>
-      <td><%= course.subject_id %></td>
-      <td><%= course.id %></td>
       <td><%= course.subject.subjectID %></td>
       <td><%= course.courseID %></td>
       <td><%= link_to course.subject.name, edit_admin_course_path(course) %></td>
       <td>
-        <% if course.user_rejected %> 
-          <% @rejected_user = course.user_rejected.split(",").map(&:to_i) %>
-        <% else %>
-          <% @rejected_user = [] %>
+        <%if course.subject.species == "normal" %>
+          LT+BT
+        <% elsif course.subject.species == "project" %>
+          Do an
         <% end %>
-        <%= form_for [:admin, course], {method: :put, remote: true} do |f| %>
-          <%= f.hidden_field :division_state, value: 'ongoing' %>
-          <%= f.hidden_field :user_confirm, value: 'waiting' %>
-          <%= f.select :user_id, User.un_rejected(@rejected_user).teaching(course.subject.id).collect{|s| [s.name, s.id]}, {}, {class: 'select-one form-control'} %>
-          <%= f.submit "Submit", class: 'btn btn-primary btn-small' %>
+      </td>
+      <td>
+        <% if course.division_state == "done" %>
+          <div class="accepted-confirm">Hoàn thành</div>
+        <% else %>
+          <% if course.user_rejected %> 
+            <% @rejected_user = course.user_rejected.split(",").map(&:to_i) %>
+          <% else %>
+            <% @rejected_user = [] %>
+          <% end %>
+          <%= form_for [:admin, course], {method: :put, remote: true} do |f| %>
+            <%= f.hidden_field :division_state, value: 'ongoing' %>
+            <%= f.hidden_field :user_confirm, value: 'waiting' %>
+            <%= f.select :user_id, User.un_rejected(@rejected_user).teaching(course.subject.id).collect{|s| [s.name, s.id]}, {}, {class: 'select-one form-control'} %>
+            <%= f.submit "Submit", class: 'btn btn-primary btn-small' %>
+          <% end %>
         <% end %>
       </td>
       <td id="division_course_<%= course.id %>">
-        <% if course.user_confirm == "rejected" || course.user_id.blank? %>
-          Chua phan giang vien
+        <% if course.division_state == "spending" %>
+          <div class="division-spending">Chưa phân công</div>
         <% else %>
-          <%= course.user.name %>
+          <% unless course.user_confirm == "rejected" || course.user_id.blank? %>
+            <div><%= course.user.name %>
+          <% end %>
+        <% end %>
+      </td>
+      <td id="lecturer_confirm_<%= course.id %>">
+        <% unless course.user_confirm.blank? %>
+          <div class="<%= course.user_confirm %>-confirm">
+            <% if course.user_confirm == "rejected" %>
+              Không nhận lớp
+            <% elsif course.user_confirm == "accepted" %>
+              Nhận lớp
+            <% elsif course.user_confirm == "waiting" %>
+              Đang chờ xác nhận
+            <% end %>
+          </div>
         <% end %>
       </td>
     </tr>
