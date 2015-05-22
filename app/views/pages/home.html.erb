@@ -9,19 +9,16 @@
 <% end %>
 
 <% if user_signed_in? && current_user.is_admin? %>
-  <h3 align="center">Phân công lớp học</h3>
-  <% if @rejected.any? %>
-    Có <b><%= @rejected.count %></b> lớp học đã phân công nhưng giảng viên không thể nhận lớp.<br />
-    <%= link_to "Xem chi tiết", '#' %>
-  <% else %>
-    Tất cả lớp học đều trong tình trạng chờ xác nhận hoặc đã được giảng viên chấp nhận.
-  <% end %>
+  <div class="center jumbotron">
+    <h2>Bạn đã đăng nhập với tài khoản quản trị viên</h2>
+  </div>
+  
 <% elsif user_signed_in? %>
   <div class="col-md-12">
     <h3 align="center">Phân công lớp học</h3>
     <% if @asigned.any? %>
       Bạn có <b><%= @asigned.count %></b> lớp học mới được phân công.<br />
-      <%= link_to "Xem chi tiết", user_courses_path(current_user) %>
+      <%= link_to "Xem chi tiết", user_courses_path(current_user, type: 'new_assigned') %>
     <% else %>
       Không có lớp học nào mới được phân công.
     <% end %>

@@ -11,9 +11,9 @@ class Course < ActiveRecord::Base
 
   scope :teach_by, ->user_id {where(user_id: user_id)}
   scope :need_assign,-> {where("user_confirm = 'rejected' OR division_state= 'spending'")}
-  scope :assigned_to, ->user_id {where("user_id = ? AND division_state='ongoing' AND user_confirm='waiting'", "#{user_id}")}
-  scope :accepted_by, ->user_id {where("user_id = ? AND division_state='done' AND user_confirm='accepted'", "#{user_id}")}
-  scope :rejected_by, -> {where("division_state='ongoing' AND user_confirm='rejected'")}
+  scope :assigned_to, ->user_id {where("user_id= ? AND division_state= 'ongoing' AND user_confirm= 'waiting'", "#{user_id}")}
+  scope :accepted_by, ->user_id {where("user_id= ? AND division_state= 'done' AND user_confirm= 'accepted'", "#{user_id}")}
+  scope :rejected_by, -> {where("division_state= 'ongoing' AND user_confirm= 'rejected'")}
 
   accepts_nested_attributes_for :timetables, reject_if: :all_blank, allow_destroy: true
 

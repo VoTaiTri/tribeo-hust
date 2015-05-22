@@ -2,7 +2,13 @@ class Admin::CoursesController < Admin::BaseController
   respond_to :html, :js
 
   def index
-    @courses = Course.all
+    if params[:type] == "rejected"
+      @courses = Course.rejected_by.all
+    elsif params[:type] == "need_assign"
+      @courses = Course.need_assign.all
+    else
+      @courses = Course.all
+    end
     authorize! :read, @courses
   end
 

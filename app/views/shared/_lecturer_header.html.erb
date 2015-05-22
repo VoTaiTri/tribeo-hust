@@ -25,6 +25,7 @@
   </a>
   <ul class="dropdown-menu">
     <li><%= link_to "Danh sách lớp học được phân công", user_courses_path(current_user) %></li>
+    <li><%= link_to "Danh sách lớp học đảm nhiệm", user_courses_path(current_user, type: 'accepted') %></li>
   </ul>
 </li>
 <li class="dropdown">
