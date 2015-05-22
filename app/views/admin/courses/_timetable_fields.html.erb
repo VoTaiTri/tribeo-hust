@@ -4,19 +4,19 @@
       <%= f.label :day, "Ngày học" %>
     </div>
     <div class="col-md-3">
-      <%= f.select :day, options_for_select(Course::DAYNAMES), {}, {class: 'select-one form-control'} %></br>
+      <%= f.select :day, Timetable::DAYNAMES, {}, {class: 'select-one form-control'} %></br>
     </div>
     <div class="col-md-2">
       <%= f.label :start_time, "Bắt đầu từ" %>
     </div>
     <div class="col-md-2">
-      <%= f.text_field :start_time, class: 'form-control' %>
+      <%= f.select :start_time, Timetable::TIME_START, {}, {class: 'select-one form-control'} %></br>
     </div>
     <div class="col-md-1">
       <%= f.label :finish_time, "Đến" %>
     </div>
     <div class="col-md-2">
-      <%= f.text_field :finish_time, class: 'form-control' %></br>
+      <%= f.select :finish_time, Timetable::TIME_FINISH, {}, {class: 'select-one form-control'} %></br>
     </div>
   </div>
 

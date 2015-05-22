@@ -1,0 +1,9 @@
+vi:
+  activerecord:
+    errors:
+      models:
+        blank: "không được để trống"
+        format: "không đúng định dạng"
+        taken: "phải là duy nhất"
+      messages:
+        record_invalid: "invalid"

@@ -23,5 +23,8 @@ en:
   activerecord:
     errors:
       models:
-        blank: "không được để trống"
-        format: "không đúng định dạng"
+        blank: "blank"
+        format: "format"
+        taken: "taken"
+      messages:
+        record_invalid: "record invalid"
