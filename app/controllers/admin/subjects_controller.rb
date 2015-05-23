@@ -4,9 +4,15 @@ class Admin::SubjectsController < Admin::BaseController
   before_action :set_subject, only: [:show, :edit, :update, :destroy]
 
   def index
-    @subjects = Subject.search_by params[:search], params[:filter]
-    @subejcts = @subjects.order(sort_column + ' ' + sort_direction)
-    @subjects= @subjects.paginate page: params[:page], per_page: 10
+    @term = Term.first
+    if params[:filter] && params[:search]
+      params[:filter] = (params[:filter])[0]
+      @subjects = Subject.search_by params[:search], params[:filter]
+      @subejcts = @subjects.order(sort_column + ' ' + sort_direction)
+      @subjects = @subjects.paginate page: params[:page], per_page: 10
+    else
+      @subjects = Subject.paginate page: params[:page], per_page: 10
+    end
     authorize! :read, @subjects
   end
 

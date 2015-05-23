@@ -1,0 +1,20 @@
+<h2>Danh sách lop hoc</h2>
+
+<% if @courses.any? %>
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th width="70px">Mã HP</th>
+      <th width="74px">Mã lớp</th>
+      <th>Tên lớp</th>
+      <th width="80px">Kiểu lớp</th>
+      <th width="200px">Phân công</th>
+      <th width="200px">Giảng viên</th>
+      <th width="160px">Giảng viên xác nhận</th>
+    </tr>
+    <%= render @courses %>
+  </table>
+
+  <%= will_paginate @courses %>
+<% else %>
+  <h3 style="center">Không có lop hoc nào</h3>
+<% end %>

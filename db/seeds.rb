@@ -12,3 +12,6 @@ Subject.create!(name: "He quan tri co so du lieu", tc: 3, lt: 30, bt: 10, subjec
 Subject.create!(name: "He tro giup quyet dinh", tc: 2, lt: 30, bt: 0, subjectID: "IT3110", species: "normal")
 Subject.create!(name: "An toan bao mat thong tin", tc: 3, lt: 45, bt: 15, subjectID: "IT3112", species: "normal")
 Subject.create!(name: "Project 2", tc: 3, subjectID: "IT4110", species: "project")
+
+puts "Crate currently term"
+Term.create!(current: 20142)

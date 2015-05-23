@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150516025807) do
+ActiveRecord::Schema.define(version: 20150523041448) do
 
   create_table "courses", force: :cascade do |t|
     t.integer  "courseID"
@@ -55,6 +55,12 @@ ActiveRecord::Schema.define(version: 20150516025807) do
   end
 
   add_index "subjects", ["subjectID"], name: "index_subjects_on_subjectID"
+
+  create_table "terms", force: :cascade do |t|
+    t.integer  "current"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "timetables", force: :cascade do |t|
     t.string   "day"

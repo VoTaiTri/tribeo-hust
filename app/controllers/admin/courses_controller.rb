@@ -2,12 +2,21 @@ class Admin::CoursesController < Admin::BaseController
   respond_to :html, :js
 
   def index
-    if params[:type] == "rejected"
-      @courses = Course.rejected_by.all
+    @term = Term.first
+    if params[:search].nil? && params[:term].nil?
+      @courses = Course.search_by "", @term.current
+    elsif params[:search] && params[:term].nil?
+      @courses = Course.search_by params[:search], @term.current
+    elsif params[:search] && params[:term]
+      @courses = Course.search_by params[:search], params[:term]
+    end
+
+    if params[:type].nil?
+      @courses = @courses.paginate page: params[:page], per_page: 10
+    elsif params[:type] == "rejected" 
+      @courses = Course.rejected_by.paginate page: params[:page], per_page: 10
     elsif params[:type] == "need_assign"
-      @courses = Course.need_assign.all
-    else
-      @courses = Course.all
+      @courses = @courses.need_assign.paginate page: params[:page], per_page: 10
     end
     authorize! :read, @courses
   end
@@ -21,6 +30,7 @@ class Admin::CoursesController < Admin::BaseController
 
   def create
     @course = Course.new course_params
+    @term = Term.first
     authorize! :create, @course
     if @course.save
       flash[:success] = "Thêm mới thông tin mở lớp thành công."

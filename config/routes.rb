@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :users
     resources :subjects ,except: :show
     resources :courses
+    resources :terms
   end
 
   resources :users, only: [:index, :show, :edit, :update] do

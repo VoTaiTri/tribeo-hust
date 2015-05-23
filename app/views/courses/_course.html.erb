@@ -1,0 +1,23 @@
+<tr>
+  <td><%= course.subject.subjectID %></td>
+  <td><%= course.courseID %></td>
+  <td><%= course.subject.name %></td>
+  <td>
+    <%if course.subject.species == "normal" %>
+      LT+BT
+    <% elsif course.subject.species == "project" %>
+      Do an
+    <% end %>
+  </td>
+  <td id="lecturer_confirm_<%= course.id %>">
+    <% if course.user_confirm == 'accepted' %>
+      <div class="accepted-confirm">Đã nhận lớp<div>
+    <% elsif course.user_confirm == 'rejected' %>
+      <div class="rejected-confirm">Không nhận lớp<div>
+    <% else %>
+      <%= link_to "Nhận lớp", user_course_path(id: course.id, user_confirm: 'accepted'), method: :put, remote: true %>
+      ||
+      <%= link_to "Không nhận lớp", user_course_path(id: course.id, user_confirm: 'rejected'), method: :put, remote: true %>
+    <% end %>
+  </td>
+</tr>

@@ -6,7 +6,9 @@ class Course < ActiveRecord::Base
 
   validates_presence_of :courseID, :term, :subject, :enroll, :max_enroll, :timetables,
               message: I18n.t('activerecord.errors.models.blank')
-  validates_uniqueness_of :courseID, message: I18n.t('activerecord.errors.models.taken') 
+  validates_uniqueness_of :courseID, message: I18n.t('activerecord.errors.models.taken')
+  validates_numericality_of :term, greater_than_or_equal_to: Term.first.current,
+                            message: " lớn hơn hoặc bằng " + Term.first.current.to_s
   validate :valid_enroll
 
   scope :teach_by, ->user_id {where(user_id: user_id)}
@@ -14,6 +16,20 @@ class Course < ActiveRecord::Base
   scope :assigned_to, ->user_id {where("user_id= ? AND division_state= 'ongoing' AND user_confirm= 'waiting'", "#{user_id}")}
   scope :accepted_by, ->user_id {where("user_id= ? AND division_state= 'done' AND user_confirm= 'accepted'", "#{user_id}")}
   scope :rejected_by, -> {where("division_state= 'ongoing' AND user_confirm= 'rejected'")}
+  scope :search_by, ->(name, term) {joins(:subject).where("subjects.name LIKE ? AND courses.term = ?", "%#{name}%", "#{term}")}
+  scope :current_term, ->term {where("term = ?", "#{term}")}
+  # scope :teaching, ->subject_id {joins(:subject_users).where("subject_id = ?", "#{subject_id}")}
+  # def self.search(search, filter, category)
+  #   if search
+  #     if category.blank?
+  #       where("#{filter} LIKE ?", "%#{search}%")
+  #     else
+  #       where("category_id = ? AND #{filter} LIKE ?", "#{category}", "%#{search}%")
+  #     end
+  #   else
+  #     all
+  #   end
+  # end
 
   accepts_nested_attributes_for :timetables, reject_if: :all_blank, allow_destroy: true
 

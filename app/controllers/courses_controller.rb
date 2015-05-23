@@ -4,10 +4,13 @@ class CoursesController < ApplicationController
   def index
     if params[:user_id]
       if params[:type] == "new_assigned"
+        @title = "Danh sách các lớp học mới được phân công"
         @courses = Course.assigned_to params[:user_id]
       elsif params[:type] == "accepted"
+        @title = "Danh sách các lớp học đã xác nhận"
         @courses = Course.accepted_by params[:user_id]
       else
+        @title = "Danh sách các lớp học liên quan"
         @courses = Course.teach_by params[:user_id]
       end
     end

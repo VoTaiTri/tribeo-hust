@@ -7,25 +7,44 @@
     </section>
   <% end %>
 <% end %>
-  
-<%= form_tag admin_subjects_path, method: 'get', id: "subjects_search" do %>
-  <%= hidden_field_tag :direction, params[:direction] %>
-  <%= hidden_field_tag :sort, params[:sort] %>
+<div class="col-md-12">
+  <%= form_tag admin_subjects_path, method: 'get', id: "subjects_search" do %>
+    <%= hidden_field_tag :direction, params[:direction] %>
+    <%= hidden_field_tag :sort, params[:sort] %>
+      
+    <div class="col-md-7 well">
+      <div class="col-md-3">
+        <label>Tìm kiếm môn học</label>
+      </div>
+      <div class="col-md-6">
+        <%= text_field_tag :search, params[:search], placeholder: 'Tìm kiếm môn học bằng tên ...' ,class: 'form-control' %>
+      </div>
+      <div class="col-md-3">
+        <%= select :filter, params[:filter], Subject::TYPE_NAME, {}, {class: 'select-one form-control'} %>
+      </div>
+    </div>
     
-  <div class="col-md-12 well">
-    <div class="col-md-2">
-      <label>Tìm kiếm môn học</label>
+    <div class="col-md-12">
+      <div id="subjects_div"><%= render 'list_subjects' %></div>
     </div>
-    <div class="col-md-6">
-      <%= text_field_tag :search, params[:search], placeholder: 'Tìm kiếm môn học bằng tên ...' , class: "input-medium search-query" %>
-    </div>
-    <div class="col-md-2">
-      <%= select_tag "filter", options_for_select([['Tất cả', ''], ['Lớp thường', 'normal'], ['Lớp thực hành', 'project']]) %>
-    </div>
-</div> 
-  <div class="col-md-12">
-    <div id="subjects_div"><%= render 'list_subjects' %></div>
-  </div>
-<% end %>
+  <% end %>
 
-<div><%= link_to "Thêm môn học mới", new_admin_subject_path %></div>
+  <div class="col-md-5 term-div well">
+    <%= form_for [:admin, @term], {method: :put, remote: true} do |f| %>
+    <div class="col-md-4">
+      <%= f.label "Học kỳ hiện tại" %>
+    </div>
+      <div class="col-md-3">
+        <%= f.text_field :current, class: 'form-control' %>
+      </div>
+      <div class="col-md-3">
+        <%= f.submit "Thay đổi", class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+    <div class="col-md-2" id="term_currently">
+      <b><%= @term.current %></b>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12"><%= link_to "Thêm môn học mới", new_admin_subject_path %></div>
