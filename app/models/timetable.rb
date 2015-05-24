@@ -17,10 +17,14 @@ class Timetable < ActiveRecord::Base
     
   scope :with_room, ->room {where("room = ?", "#{room}")}
   scope :with_day, ->day {where("day = ?", "#{day}")}
-  query = "(start_time <= :start_time AND finish_time >= :finish_time)
-          OR (start_time > :start_time AND start_time < :finish_time)
-          OR (finish_time > :start_time AND finish_time < :finish_time)"
-  scope :filte_timer, ->(start, finish) {where(query, start_time: start, finish_time: finish)}
+  query_day = "day = :day"
+  query_time = "(start_time <= :start_time AND finish_time >= :finish_time)
+                OR (start_time > :start_time AND start_time < :finish_time)
+                OR (finish_time > :start_time AND finish_time < :finish_time)"
+  query_user = "courses.user_id= :user_id AND courses.term= :term AND courses.user_confirm != 'rejected'"
+  scope :filte_timer, ->(start, finish) {where(query_time, start_time: start, finish_time: finish)}
+  scope :involve_user, ->(user_id, term) {joins(:course).where("courses.user_id= ? AND courses.term= ? AND courses.user_confirm != 'rejected'", "#{user_id}", "#{term}")}
+  scope :filter_user, ->(user, term, day, start, finish) {joins(:course).where(query_user + " AND " + query_day + " AND (" + query_time + ")", user_id: user, term: term, day: day, start_time: start, finish_time: finish)}
 
   private
   def valid_room_create

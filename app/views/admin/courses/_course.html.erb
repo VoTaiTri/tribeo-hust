@@ -22,7 +22,7 @@
         <%= f.hidden_field :division_state, value: 'ongoing' %>
         <%= f.hidden_field :user_confirm, value: 'waiting' %>
         <%= f.select :user_id, User.un_rejected(@rejected_user).teaching(course.subject.id).collect{|s| [s.name, s.id]}, {}, {class: 'select-one form-control'} %>
-        <%= f.submit "Phân công", class: 'btn btn-primary' %>
+        <%= f.submit "Phân công", data: {confirm: "Bạn chắc chắn về việc phân công lớp học này?"}, class: 'btn btn-primary' %>
       <% end %>
     <% end %>
   </td>

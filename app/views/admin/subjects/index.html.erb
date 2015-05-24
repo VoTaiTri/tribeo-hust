@@ -38,7 +38,7 @@
         <%= f.text_field :current, class: 'form-control' %>
       </div>
       <div class="col-md-3">
-        <%= f.submit "Thay đổi", class: 'btn btn-primary' %>
+        <%= f.submit "Thay đổi", data: {confirm: "Bạn chắc chắn thay đổi học kỳ hiện tại"}, class: 'btn btn-primary' %>
       </div>
     <% end %>
     <div class="col-md-2" id="term_currently">

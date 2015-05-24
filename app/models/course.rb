@@ -18,18 +18,6 @@ class Course < ActiveRecord::Base
   scope :rejected_by, -> {where("division_state= 'ongoing' AND user_confirm= 'rejected'")}
   scope :search_by, ->(name, term) {joins(:subject).where("subjects.name LIKE ? AND courses.term = ?", "%#{name}%", "#{term}")}
   scope :current_term, ->term {where("term = ?", "#{term}")}
-  # scope :teaching, ->subject_id {joins(:subject_users).where("subject_id = ?", "#{subject_id}")}
-  # def self.search(search, filter, category)
-  #   if search
-  #     if category.blank?
-  #       where("#{filter} LIKE ?", "%#{search}%")
-  #     else
-  #       where("category_id = ? AND #{filter} LIKE ?", "#{category}", "%#{search}%")
-  #     end
-  #   else
-  #     all
-  #   end
-  # end
 
   accepts_nested_attributes_for :timetables, reject_if: :all_blank, allow_destroy: true
 

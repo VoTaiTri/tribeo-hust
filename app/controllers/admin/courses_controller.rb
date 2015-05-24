@@ -34,7 +34,7 @@ class Admin::CoursesController < Admin::BaseController
     authorize! :create, @course
     if @course.save
       flash[:success] = "Thêm mới thông tin mở lớp thành công."
-      redirect_to root_url
+      redirect_to admin_courses_path(type: "need_assign")
     else
       render :new
     end
@@ -47,9 +47,16 @@ class Admin::CoursesController < Admin::BaseController
 
   def update
     @course = Course.find params[:id]
+    term = Term.first.current
+    day = @course.timetables.first.day
+    start = @course.timetables.first.start_time
+    finish = @course.timetables.first.finish_time
     authorize! :update, @course
+
     if params[:course][:user_id]
-      @course.update_attributes course_params
+      if Timetable.filter_user(params[:course][:user_id], term, day, start, finish).count == 0
+        @course.update_attributes course_params
+      end
     else
       if @course.update_attributes course_params
         redirect_to admin_courses_path()

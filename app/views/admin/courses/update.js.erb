@@ -1,2 +1,6 @@
-$("#division_course_<%= @course.id %>").html("<div><%= User.find(@course.user_id).name %><div>");
-$("#lecturer_confirm_<%= @course.id %>").html("<div class='waiting-confirm'>Đang chờ xác nhận<div>");
+<% if @course.user_confirm == "rejected" || @course.user_id.nil? %>
+  alert("Giảng viên sẽ bị trùng lịch đứng lớp. Bạn phải phân công lớp học này cho giảng viên khác!")
+<% else %>
+  $("#division_course_<%= @course.id %>").html("<div><%= User.find(@course.user_id).name %><div>");
+  $("#lecturer_confirm_<%= @course.id %>").html("<div class='waiting-confirm'>Đang chờ xác nhận<div>");
+<% end %>
