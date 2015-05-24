@@ -48,13 +48,14 @@ class Admin::CoursesController < Admin::BaseController
   def update
     @course = Course.find params[:id]
     term = Term.first.current
-    day = @course.timetables.first.day
-    start = @course.timetables.first.start_time
-    finish = @course.timetables.first.finish_time
     authorize! :update, @course
-
     if params[:course][:user_id]
-      if Timetable.filter_user(params[:course][:user_id], term, day, start, finish).count == 0
+      @timetables = @course.timetables
+      dem = 0
+      @timetables.each do |t|
+        dem += 1 if Timetable.filter_user(params[:course][:user_id], term, t.day, t.start_time, t.finish_time).count == 0
+      end
+      if dem == @course.timetables.count
         @course.update_attributes course_params
       end
     else
