@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20150523041448) do
     t.datetime "remember_created_at"
     t.string   "avatar"
     t.string   "role",                   default: "normal"
+    t.string   "degree"
     t.integer  "sign_in_count",          default: 0,        null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"

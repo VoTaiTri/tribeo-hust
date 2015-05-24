@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  DEGREE = [['Ths', 'Ths'], ['TS', 'TS'], ['PGS/TS', 'PGS/TS'], ['PGS', 'PGS'], ['GS', 'GS']]       
+  DAYNAMES = [['Thứ hai', '2'], ['Thứ ba', '3'], ['Thứ tư', '4'], ['Thứ năm', '5'], ['Thứ sáu', '6']]
+
   has_many :subject_users
   has_many :technicals, through: :subject_users, source: :subject, foreign_key: :user_id
   has_many :courses

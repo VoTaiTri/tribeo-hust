@@ -2,6 +2,8 @@
   <td><%= course.subject.subjectID %></td>
   <td><%= course.courseID %></td>
   <td><%= link_to course.subject.name, course_path(course) %></td>
+  <td><%= course.subject.tc %></td>
+  <td><%= course.enroll.to_s + "/" +course.max_enroll.to_s %></td>
   <td>
     <%if course.subject.species == "normal" %>
       LT+BT

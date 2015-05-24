@@ -9,16 +9,17 @@
 <% end %>
 
 <div class="col-md-8 col-md-offset-2 well">
-  <table>
-    <tr>
-      <th width="200px">Họ và tên</th>
-      <td><%= @user.name %></td>
-    </tr>
-    <tr>
-      <th width="200px">Email</th>
-      <td><%= @user.email %></td>
-    </tr>
-  </table>
+  <h2>Thông tin cá nhân giảng viên</h2>
+  <div class="col-md-12">
+    <label class="col-md-2">Học vị</label>
+    <div class="col-md-2 form-control"><%= @user.degree %></div>
+    <label class="col-md-2">Họ và tên</label>
+    <div class="col-md-6 form-control"><%= @user.name %></div>
+  </div>
+  <div class="col-md-12">
+    <label class="col-md-2">Email</label>
+    <div class="col-md-10 form-control"><%= @user.email %></div>
+  </div>
 </div>
 
 <div class="col-md-12">
@@ -40,9 +41,9 @@
 
       <%= will_paginate @subjects %>
     <% else %>
-      <h4 style="center">Giảng viên không đảm nhiệm môn học nào.</h4>
+      <h4 align="center">Giảng viên không đảm nhiệm môn học nào.</h4>
     <% end %>
-
+    <hr />
     <%= link_to "Thay đổi môn học đảm nhiệm", edit_user_path(@user) %>
   <% else %>
     <div class="col-md-8 col-md-offset-2 well">

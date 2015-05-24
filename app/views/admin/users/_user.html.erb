@@ -1,4 +1,4 @@
-<% unless current_user == user %>
+<% unless current_user == user && current_user.is_admin? %>
   <tr id="user_<%= user.id %>">
     <td>
       <div class="col-md-12">
@@ -9,6 +9,7 @@
         <% end %>
       </div>
     </td>
+    <td><div class="col-md-12"><%= user.degree %></div></td>
     <td><div class="col-md-12"><%= link_to user.name, admin_user_path(user) %></div></td>
     <td><div class="col-md-12"><%= user.email %></div></td>
     <td>
