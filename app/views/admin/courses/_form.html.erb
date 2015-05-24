@@ -17,6 +17,9 @@
     <%= f.label :max_enroll, "Đăng ký tối đa" %>
     <%= f.number_field :max_enroll, min: 0, class: 'number-chosse form-control' %></br>
 
+    <%= f.label :note, "Ghi chú" %>
+    <%= f.text_field :note, class: 'form-control' %></br>
+
     <%= f.label "Thời khóa biểu" %>
     <%= f.fields_for :timetables do |builder| %>
       <%= render 'timetable_fields', f: builder %>

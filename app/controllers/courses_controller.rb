@@ -16,6 +16,13 @@ class CoursesController < ApplicationController
     end
   end
 
+  def show
+    @course = Course.find params[:id]
+    if @course.subject.species == "normal"
+      @timetables = @course.timetables
+    end
+  end
+
   def update
     @course = Course.find params[:id]
     if params[:user_confirm] == "rejected"

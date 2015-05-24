@@ -1,0 +1,75 @@
+<% provide :title, "Class detail" %>
+
+<% if user_signed_in? %>
+  <% content_for :left_info do %>
+    <section class="user_info">
+      <%= render 'shared/user_info' %>
+    </section>
+  <% end %>
+<% end %>
+
+<div class="col-md-8 col-md-offset-2 well">
+  <h2 align="center">Thông tin chi tiết lớp học</h2>
+  <hr />
+  <div class="col-md-12">
+    <div class="col-md-2">
+      <label>Học kỳ</label><div class="form-control"><%= @course.term %></div>
+    </div>
+    <div class="col-md-2">
+      <label>Mã HP</label><div class="form-control"><%= @course.subject.subjectID %></div>
+    </div>
+    <div class="col-md-2">
+      <label>So TC</label><div class="form-control"><%= @course.subject.tc %></div>
+    </div>
+    <div class="col-md-3">
+      <label>Kiểu lớp</label>
+      <div class="form-control">
+        <% if @course.subject.species == "normal"%>
+          LT+BT
+        <% else %>
+          Đồ án
+        <% end %>
+      </div>
+    </div>
+    <% if @course.subject.species == "normal"%>
+      <div class="col-md-3">
+        <label>Số lượng đăng ký</label><div class="form-control"><%= @course.enroll.to_s + "/" + @course.max_enroll.to_s %></div>
+      </div>
+    <% end %>
+    <div class="col-md-3">
+      <label>Mã lớp</label><div class="form-control"><%= @course.courseID %></div>
+    </div>
+    <div class="col-md-9">
+      <label>Tên học phần</label><div class="form-control"><%= @course.subject.name %></div>
+    </div>
+    <% if @course.subject.species == "normal"%>
+      <div class="col-md-12">
+        <label>Ghi chú</label>
+        <div class="form-control"><%= @course.note %></div>
+      </div>
+      <div class="col-md-12">
+        <label>Lịch học</label>
+      </div>
+      <% @timetables.each do |t| %>
+        <div class="col-md-12">
+          <div class="col-md-3">
+            <label>Ngày</label>
+            <div class="form-control">Thứ <%= t.day %></div>
+          </div>
+          <div class="col-md-3">
+            <label>Bắt đầu từ</label>
+            <div class="form-control"><%= t.start_time %></div>
+          </div>
+          <div class="col-md-3">
+            <label>Đến</label>
+            <div class="form-control"><%= t.finish_time %></div>
+          </div>
+          <div class="col-md-3">
+            <label>Giảng đường</label>
+            <div class="form-control"><%= t.room %></div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
