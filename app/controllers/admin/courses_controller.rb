@@ -3,20 +3,25 @@ class Admin::CoursesController < Admin::BaseController
 
   def index
     @term = Term.first
-    if params[:search].nil? && params[:term].nil?
-      @courses = Course.search_by "", @term.current
-    elsif params[:search] && params[:term].nil?
-      @courses = Course.search_by params[:search], @term.current
-    elsif params[:search] && params[:term]
-      @courses = Course.search_by params[:search], params[:term]
-    end
 
-    if params[:type].nil?
+    if params[:type] == "outtime"
+      @courses = Course.outtime_assign(@term.current).paginate page: params[:page], per_page: 10
+    else
+      if params[:search].nil? && params[:term].nil?
+        @courses = Course.search_by "", @term.current
+      elsif params[:search] && params[:term].nil?
+        @courses = Course.search_by params[:search], @term.current
+      elsif params[:search] && params[:term]
+        @courses = Course.search_by params[:search], params[:term]
+      end
+
+      if params[:type].nil?
       @courses = @courses.paginate page: params[:page], per_page: 10
-    elsif params[:type] == "rejected" 
-      @courses = Course.rejected_by.paginate page: params[:page], per_page: 10
-    elsif params[:type] == "need_assign"
-      @courses = @courses.need_assign.paginate page: params[:page], per_page: 10
+      elsif params[:type] == "rejected" 
+        @courses = Course.rejected_by.paginate page: params[:page], per_page: 10
+      elsif params[:type] == "need_assign"
+        @courses = @courses.need_assign.paginate page: params[:page], per_page: 10
+      end
     end
     authorize! :read, @courses
   end
@@ -50,13 +55,19 @@ class Admin::CoursesController < Admin::BaseController
     term = Term.first.current
     authorize! :update, @course
     if params[:course][:user_id]
-      @timetables = @course.timetables
-      dem = 0
-      @timetables.each do |t|
-        dem += 1 if Timetable.filter_user(params[:course][:user_id], term, t.day, t.start_time, t.finish_time).count == 0
-      end
-      if dem == @course.timetables.count
+      if params[:course][:division_state] == "done" && params[:course][:user_confirm] == "accepted"
         @course.update_attributes course_params
+      elsif params[:course][:user_confirm] == "rejected" && params[:course][:user_rejected].present?
+        @course.update_attributes course_params
+      else
+        @timetables = @course.timetables
+        dem = 0
+        @timetables.each do |t|
+          dem += 1 if Timetable.filter_user(params[:course][:user_id], term, t.day, t.start_time, t.finish_time).count == 0
+        end
+        if dem == @course.timetables.count
+          @course.update_attributes course_params
+        end
       end
     else
       if @course.update_attributes course_params
@@ -72,7 +83,7 @@ class Admin::CoursesController < Admin::BaseController
   def course_params
     params.require(:course).permit :courseID, :enroll, :max_enroll, :state,
                                   :term, :note, :timetable, :division_state,
-                                  :user_rejectd, :user_confirm,
+                                  :user_rejected, :user_confirm,
                                   :subject_id, :user_id,
                                   timetables_attributes: [:id, :day, :room,
                                                           :start_time, 

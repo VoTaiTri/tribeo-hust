@@ -35,6 +35,6 @@ class CoursesController < ApplicationController
 
   private
   def course_params
-    params.require(:course).permit :user_rejected, :user_confirm
+    params.require(:course).permit :user_rejected, :user_confirm, :division_state
   end
 end

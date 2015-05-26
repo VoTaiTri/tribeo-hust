@@ -1,6 +1,18 @@
-<% if @course.user_confirm == "rejected" || @course.user_id.nil? %>
+<% if Time.now.utc.to_i > @course.updated_at.to_i %>
   alert("Giảng viên sẽ bị trùng lịch đứng lớp. Bạn phải phân công lớp học này cho giảng viên khác!")
-<% else %>
+<% elsif Time.now.utc.to_i == @course.updated_at.to_i %>
   $("#division_course_<%= @course.id %>").html("<div><%= User.find(@course.user_id).name %><div>");
   $("#lecturer_confirm_<%= @course.id %>").html("<div class='waiting-confirm'>Đang chờ xác nhận<div>");
 <% end %>
+
+<% if @course.user_confirm == "accepted" && @course.division_state == "done" %>
+  alert("Hoàn thành phân công lớp học này.")
+  $("#resolve_assign_<%= @course.id %>").remove()
+<% end %>
+
+<% if @course.user_confirm == "rejected" && @course.user_rejected.present? %>
+  alert("Hãy tiến hành phân công giảng viên khác cho lớp học này.")
+  $("#resolve_assign_<%= @course.id %>").remove()
+<% end %>
+
+//@course.user_confirm == "rejected" || @course.user_id.nil?

@@ -1,20 +1,41 @@
-<h2 align="center">Phân công lớp học</h2>
+<% provide :title, "Dashboard" %>
+
 <div class="col-md-8 col-md-offset-2">
-  <ul><h3>Giảng viên không nhận lớp</h3></ul>
-  <% if @rejected.any? %>
-    Có <b><%= @rejected.count %></b> lớp học đã phân công nhưng giảng viên không thể nhận lớp.<br />
-    <%= link_to "Xem chi tiết", admin_courses_path(type: 'rejected') %>
-  <% else %>
-    Tất cả lớp học đều trong tình trạng chờ xác nhận hoặc đã được giảng viên chấp nhận.
-  <% end %>
+  <h2 align="center">Phân công lớp học</h2>
+</div>
+<div class="col-md-8 col-md-offset-2">
+  <div align="center">
+    <ul><h3>Hết thời hạn xác nhận</h3></ul>
+    <% if @timeout.any? %>
+      Có <b><%= @timeout.count %></b> lớp học hết thời hạn xác nhận cho giảng viên.<br />
+      <div style="color: red;">Cần xử lý gấp</div>
+      <%= link_to "Xem chi tiết", admin_courses_path(type: 'outtime') %>
+    <% else %>
+      Không có lớp học nào qúa thời hạn xác nhận.
+    <% end %>
+  </div>
   <hr />
 </div>
 <div class="col-md-8 col-md-offset-2">
-  <ul><h3>Lớp học cần phân công</h3></ul>
-  <% if @need_assign.any? %>
-    Có <b><%= @need_assign.count %></b> lớp học cần được phân công cho giảng viên.<br />
-    <%= link_to "Xem chi tiết", admin_courses_path(type: 'need_assign') %>
-  <% else %>
-    Tất cả lớp học đã được phân công cho giảng viên.
-  <% end %>
+  <div align="center">
+    <ul><h3>Giảng viên không nhận lớp</h3></ul>
+    <% if @rejected.any? %>
+      Có <b><%= @rejected.count %></b> lớp học đã phân công nhưng giảng viên không thể nhận lớp.<br />
+      <%= link_to "Xem chi tiết", admin_courses_path(type: 'rejected') %>
+    <% else %>
+      Tất cả lớp học đều trong tình trạng chờ xác nhận hoặc đã được giảng viên chấp nhận.
+    <% end %>
+  </div>
+  <hr />
+</div>
+<div class="col-md-8 col-md-offset-2">
+  <div align="center">
+    <ul><h3>Lớp học cần phân công</h3></ul>
+    <% if @need_assign.any? %>
+      Có <b><%= @need_assign.count %></b> lớp học cần được phân công cho giảng viên.<br />
+      <%= link_to "Xem chi tiết", admin_courses_path(type: 'need_assign') %>
+    <% else %>
+      Tất cả lớp học đã được phân công cho giảng viên.
+    <% end %>
+  </div>
 </div>

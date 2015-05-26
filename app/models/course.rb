@@ -1,4 +1,7 @@
 class Course < ActiveRecord::Base
+  NEW_OUTTIME = (Time.now - 3.days).strftime("%Y-%m-%d")
+  RE_OUTTIME = (Time.now - 2.days).strftime("%Y-%m-%d")
+
   belongs_to :subject
   belongs_to :user
 
@@ -18,7 +21,10 @@ class Course < ActiveRecord::Base
   scope :rejected_by, -> {where("division_state= 'ongoing' AND user_confirm= 'rejected'")}
   scope :search_by, ->(name, term) {joins(:subject).where("subjects.name LIKE ? AND courses.term = ?", "%#{name}%", "#{term}")}
   scope :current_term, ->term {where("term = ?", "#{term}")}
-
+  query_new = "(division_state= 'ongoing' AND term = :term AND (user_rejected IS NULL) AND updated_at LIKE :new_outime)"
+  query_re =  "(division_state= 'ongoing' AND term = :term AND user_rejected LIKE '%%' AND updated_at LIKE :re_outime)"
+  scope :outtime_assign, ->term {where(query_new + " OR " + query_re, term: term, new_outime: "%#{NEW_OUTTIME}%", re_outime: "%#{RE_OUTTIME}%")}
+  
   accepts_nested_attributes_for :timetables, reject_if: :all_blank, allow_destroy: true
 
   private

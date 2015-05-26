@@ -1,1 +1,5 @@
-$("#lecturer_confirm_<%= @course.id %>").html("<div class='<%= @course.user_confirm %>-confirm'><%= @course.user_confirm %><div>");
+<% if @course.user_confirm == "rejected" %>
+  $("#lecturer_confirm_<%= @course.id %>").html("<div class='rejected-confirm'>Không nhận lớp<div>");
+<% elsif @course.user_confirm == "accepted" %>
+  $("#lecturer_confirm_<%= @course.id %>").html("<div class='accepted-confirm'>Đã nhận lớp<div>");
+<% end %>

@@ -17,9 +17,9 @@
     <% elsif course.user_confirm == 'rejected' %>
       <div class="rejected-confirm">Không nhận lớp<div>
     <% else %>
-      <%= link_to "Nhận lớp", user_course_path(id: course.id, user_confirm: 'accepted'), method: :put, remote: true %>
+      <%= link_to "Nhận lớp", user_course_path(id: course.id, user_confirm: 'accepted'), method: :put, remote: true, data: {confirm: "Bạn thực sự muốn đảm nhiệm lớp học này?"} %>
       ||
-      <%= link_to "Không nhận lớp", user_course_path(id: course.id, user_confirm: 'rejected'), method: :put, remote: true %>
+      <%= link_to "Không nhận lớp", user_course_path(id: course.id, user_confirm: 'rejected'), method: :put, remote: true, data: {confirm: "Bạn thực sự không thể đảm nhiệm lớp học này?"} %>
     <% end %>
   </td>
 </tr>
